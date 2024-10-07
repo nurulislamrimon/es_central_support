@@ -14,10 +14,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// user model
+// administrator model
 
 // while creating a new model make sure added the model to the IModelMapping else filter and search will not work
-model User {
+model Administrator {
   id           Int       @id @default(autoincrement())
   full_name    String
   phone_number String

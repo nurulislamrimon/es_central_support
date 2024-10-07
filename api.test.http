@@ -4,26 +4,26 @@
 GET {{url}}
 
 ###
-GET {{url}}/{{suffix}}/users?email=nguyenvana@gmail.com
+GET {{url}}/{{suffix}}/administrators?email=nguyenvana@gmail.com
 # GET {{url}}/{{suffix}}/users?searchTerm=nu
 
 ###
-POST {{url}}/{{suffix}}/users/add
+POST {{url}}/{{suffix}}/administrators/add
 Content-Type: application/json
 
 {
   "full_name" : "Rimon",
   "phone_number":"0123456789",
-  "email":"niri@gmail.com",
+  "email":"nim@gmail.com",
   "role": "admin",
-  "password" :"123456789",
+  "password" :"123456789"
 }
 
 ###
-POST {{url}}/{{suffix}}/users/login
+POST {{url}}/{{suffix}}/administrators/login
 Content-Type: application/json
 
 {
-  "email":"rimfon@gmail.com",
+  "email":"ni@gmail.com",
   "password" :"123456789"
 }
