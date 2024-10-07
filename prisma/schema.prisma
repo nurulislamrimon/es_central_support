@@ -21,14 +21,14 @@ model User {
   id               Int       @id @default(autoincrement())
   full_name        String
   phone_number     String
-  email            String
+  email            String    @unique
   role             Role      @default(user)
   password         String
   confirm_password String
   address          String?
   // dates
   created_at       DateTime  @default(now())
-  updated_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
   deleted_at       DateTime?
 }
 
@@ -51,6 +51,6 @@ model Help_request {
   project_description String
   // dates
   created_at          DateTime  @default(now())
-  updated_at          DateTime  @default(now())
+  updated_at          DateTime  @updatedAt
   deleted_at          DateTime?
 }

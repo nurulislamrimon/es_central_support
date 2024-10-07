@@ -9,9 +9,10 @@ import { searchFilterAndPagination } from "../../../utils/searchFilterAndPaginat
 const getUsers = async (req: Request) => {
   const query = searchFilterAndPagination<"User">(
     req,
-    [],
+    ["full_name"],
     ["full_name", "email"]
   );
+
   const users = await prisma.user.findMany({
     where: query.where,
     skip: query.skip,
@@ -20,11 +21,15 @@ const getUsers = async (req: Request) => {
       [query.sortBy]: query.sortOrder,
     },
   });
+
   const total = await prisma.user.count({
     where: query.where,
   });
 
-  return { users, meta: { total, page: query.page, limit: query.limit } };
+  return {
+    users,
+    meta: { total, page: query.page, limit: query.limit },
+  };
 };
 
 // -----------------------------

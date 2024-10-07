@@ -54,8 +54,7 @@ export const searchFilterAndPagination = <
   if (typeof searchTerm === "string") {
     where.OR = searchableFields.map((field) => ({
       [field]: {
-        contains: searchTerm, // Use `contains` for search term
-        mode: "insensitive",
+        contains: searchTerm,
       },
     }));
   }

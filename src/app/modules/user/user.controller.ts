@@ -18,6 +18,7 @@ import { catchAsync } from "../../../utils/catchAsync";
 
 const getUsers: RequestHandler = catchAsync(async (req, res, next) => {
   const result = await userService.getUsers(req);
+  // res.send({ filter: result.filter });
   sendResponse<User[]>({
     res,
     success: true,

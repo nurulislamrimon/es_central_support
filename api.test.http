@@ -5,18 +5,17 @@ GET {{url}}
 
 ###
 GET {{url}}/{{suffix}}/users?email=nguyenvana@gmail.com
-
+# GET {{url}}/{{suffix}}/users?searchTerm=nu
 
 ###
 POST {{url}}/{{suffix}}/users/add
 Content-Type: application/json
 
 {
-  "full_name" : "Nguyen Van A",
-#   "phone_number":"0123456789",
-#   "email":"nguyenvana@gmail.com",
-  "role":             "admin",
-  "password"    :"123456789",
+  "full_name" : "Rimon",
+  "phone_number":"0123456789",
+  "email":"Rimon@gmail.com",
+  "role": "admin",
+  "password" :"123456789",
   "confirm_password" :"123456789"
 }
-
