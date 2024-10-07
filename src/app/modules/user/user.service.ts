@@ -2,16 +2,17 @@ import { User } from "@prisma/client";
 import prisma from "../../../orm";
 import { Request } from "express";
 import { searchFilterAndPagination } from "../../../utils/searchFilterAndPagination";
+import { userFilterableFields, userSearchableFields } from "./user.constants";
 
 // -----------------------------
 // get all users
 // -----------------------------
-const getUsers = async (req: Request) => {
-  const query = searchFilterAndPagination<"User">(
+const getAllUsers = async (req: Request) => {
+  const query = searchFilterAndPagination<"User">({
     req,
-    ["full_name"],
-    ["full_name", "email"]
-  );
+    filterableFields: userFilterableFields,
+    searchableFields: userSearchableFields,
+  });
 
   const users = await prisma.user.findMany({
     where: query.where,
@@ -44,6 +45,6 @@ const addUsers = async ({ data }: { data: User }) => {
 
 // export
 export const userService = {
-  getUsers,
+  getAllUsers,
   addUsers,
 };

@@ -22,11 +22,15 @@ const pick = (
 // --------------------------------
 export const searchFilterAndPagination = <
   T extends keyof IModelMappingsForWhere
->(
-  req: Request,
-  searchableFields: Array<keyof IModelMappingsForWhere[T]>,
-  filterableFields: Array<keyof IModelMappingsForWhere[T]>
-): {
+>({
+  req,
+  searchableFields,
+  filterableFields,
+}: {
+  req: Request;
+  searchableFields: Array<keyof IModelMappingsForWhere[T]>;
+  filterableFields: Array<keyof IModelMappingsForWhere[T]>;
+}): {
   where: IModelMappingsForWhere[T];
   page: number;
   limit: number;

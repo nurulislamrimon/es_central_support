@@ -22,7 +22,7 @@ export const globalErrorHandler: ErrorRequestHandler = (
   sendResponse({
     res,
     success: false,
-    message: error?.name || "Something went wrong",
+    message: error?.name || "Internal server error!",
     data: error?.data,
     statusCode: error?.statusCode || 500,
     errorMessages,
