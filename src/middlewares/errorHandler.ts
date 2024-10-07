@@ -1,5 +1,6 @@
 import { ErrorRequestHandler, RequestHandler } from "express";
 import { sendResponse } from "../utils/sendResponse";
+import formatPrismaError from "../helpers/errorFormatter";
 
 export const notFoundRouteHandler: RequestHandler = (req, res, next) => {
   next({ message: "Route not found", statusCode: 404 });
@@ -12,13 +13,18 @@ export const globalErrorHandler: ErrorRequestHandler = (
   res,
   next
 ) => {
-  console.error(error?.message);
+  let errorMessages = [{ path: req.originalUrl, message: error?.message }];
+  if (error?.name === "PrismaClientValidationError") {
+    const simplifiedError = formatPrismaError(error, req);
+    errorMessages = simplifiedError?.errorMessages;
+  }
+
   sendResponse({
     res,
     success: false,
-    message: error?.message || "Something went wrong",
+    message: error?.name || "Something went wrong",
     data: error?.data,
     statusCode: error?.statusCode || 500,
-    errorMessages: [{ path: req.originalUrl, message: error?.message }],
+    errorMessages,
   });
 };

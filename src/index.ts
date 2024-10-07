@@ -29,12 +29,14 @@ main().catch(async (e) => {
 
 // Graceful shutdown function
 const gracefulShutdown = async (exitCode: number = 0) => {
-  console.log("Graceful shutdown initiated");
-  server.close();
-  console.log("HTTP server closed");
-  await prisma.$disconnect();
-  console.log("Database connections closed");
-  process.exit(exitCode);
+  if (server) {
+    console.log("Graceful shutdown initiated");
+    server.close();
+    console.log("HTTP server closed");
+    await prisma.$disconnect();
+    console.log("Database connections closed");
+    process.exit(exitCode);
+  }
 };
 
 // Handle uncaught exceptions
