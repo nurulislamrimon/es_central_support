@@ -1,10 +1,13 @@
 @url=http://localhost:5000
 @suffix=api/v1
+@accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzI4MzE3MTA1LCJleHAiOjE3Mjg0MDM1MDV9.3xx6ehWzP-jZM25XcFuGY_uNwaleIrL2m4wEl7esmFk
 
 GET {{url}}
 
 ###
 GET {{url}}/{{suffix}}/administrators?email=nguyenvana@gmail.com
+authorization: bearer {{accessToken}}
+
 # GET {{url}}/{{suffix}}/users?searchTerm=nu
 
 ###

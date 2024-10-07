@@ -27,7 +27,7 @@ import {
 const getAllAdministrators: RequestHandler = catchAsync(
   async (req, res, next) => {
     const result = await administratorService.getAllAdministrators(req);
-    sendResponse<Administrator[]>({
+    sendResponse<Partial<Administrator>[]>({
       res,
       success: true,
       message: "Administrators retrieved successfully!",
@@ -52,7 +52,6 @@ const getAllAdministrators: RequestHandler = catchAsync(
 
 const addAdministrator: RequestHandler = catchAsync(async (req, res) => {
   const newAdministrator = req.body;
-  console.log(newAdministrator);
 
   const isAlreadyExist = await administratorService.getAAdministrator({
     where: { email: newAdministrator.email },
@@ -107,6 +106,8 @@ const login: RequestHandler = catchAsync(async (req, res) => {
   if (!isPasswordMatched) {
     throw new ApiError(401, "Invalid credentials");
   }
+
+  const { password: pass, ...rest } = isAdministratorExist;
   // generate access token
   const accessToken = generateToken(
     isAdministratorExist,
@@ -133,8 +134,7 @@ const login: RequestHandler = catchAsync(async (req, res) => {
     res,
     success: true,
     message: "Administrator logged in successfully!",
-    data: { accessToken, refreshToken, administrator: isAdministratorExist },
-
+    data: { administrator: rest, accessToken, refreshToken },
     statusCode: 200,
   });
 });

@@ -5,6 +5,7 @@ import { searchFilterAndPagination } from "../../../utils/searchFilterAndPaginat
 import {
   administratorFilterableFields,
   administratorSearchableFields,
+  administratorSelectedFields,
 } from "./administrators.constants";
 
 // -----------------------------
@@ -19,6 +20,7 @@ const getAllAdministrators = async (req: Request) => {
 
   const administrators = await prisma.administrator.findMany({
     where: query.where,
+    select: administratorSelectedFields,
     skip: query.skip,
     take: query.limit,
     orderBy: {
