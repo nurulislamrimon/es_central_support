@@ -14,8 +14,16 @@ Content-Type: application/json
 {
   "full_name" : "Rimon",
   "phone_number":"0123456789",
-  "email":"Rimon@gmail.com",
+  "email":"niri@gmail.com",
   "role": "admin",
   "password" :"123456789",
-  "confirm_password" :"123456789"
+}
+
+###
+POST {{url}}/{{suffix}}/users/login
+Content-Type: application/json
+
+{
+  "email":"rimfon@gmail.com",
+  "password" :"123456789"
 }

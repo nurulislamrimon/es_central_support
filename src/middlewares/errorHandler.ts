@@ -14,7 +14,11 @@ export const globalErrorHandler: ErrorRequestHandler = (
   next
 ) => {
   let errorMessages = [{ path: req.originalUrl, message: error?.message }];
-  if (error?.name === "PrismaClientValidationError") {
+  if (
+    error?.name === "PrismaClientValidationError" ||
+    error?.name === "PrismaClientKnownRequestError" ||
+    error?.name === "PrismaClientUnKnownRequestError"
+  ) {
     const simplifiedError = formatPrismaError(error, req);
     errorMessages = simplifiedError?.errorMessages;
   }

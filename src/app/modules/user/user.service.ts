@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { Prisma, User } from "@prisma/client";
 import prisma from "../../../orm";
 import { Request } from "express";
 import { searchFilterAndPagination } from "../../../utils/searchFilterAndPagination";
@@ -43,8 +43,17 @@ const addUsers = async ({ data }: { data: User }) => {
   return users;
 };
 
+// ---------------------------------------------
+// get a user by query
+// ---------------------------------------------
+const getAUser = async (query: Prisma.UserFindFirstArgs) => {
+  const users = await prisma.user.findFirst(query);
+  return users;
+};
+
 // export
 export const userService = {
   getAllUsers,
   addUsers,
+  getAUser,
 };
