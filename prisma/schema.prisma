@@ -44,8 +44,8 @@ model Help_request {
   client_name         String
   phone_number        String
   email               String
-  service_name        String
-  project_budget      String
+  budget_min          Int
+  budget_max          Int
   project_description String
   // dates
   created_at          DateTime  @default(now())

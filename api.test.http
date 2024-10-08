@@ -8,7 +8,10 @@ GET {{url}}
 GET {{url}}/{{suffix}}/administrators?email=nguyenvana@gmail.com
 authorization: bearer {{accessToken}}
 
-# GET {{url}}/{{suffix}}/users?searchTerm=nu
+
+# -----------------
+# user model
+# -----------------
 
 ###
 POST {{url}}/{{suffix}}/administrators/add
@@ -39,3 +42,29 @@ Content-Type: application/json
   "email":"nirimon@gmail.com",
   "password" :"123456789"
 }
+
+# -----------------
+# help request model
+# -----------------
+###
+GET  {{url}}/{{suffix}}/help-request
+Content-Type: application/json
+Authorization: bearer {{accessToken}}
+
+###
+POST {{url}}/{{suffix}}/help-request/add
+Content-Type: application/json
+
+{
+  "platform_name": "Elite Commerce",
+  "client_name": "Nurul Islam Rimon",
+  "phone_number": "01710000000",
+  "email": "nirimonbd@gmail.com",
+  "budget_min": 400,
+  # "budget_max": 500,
+  "project_description": "This will be the best project if you want!"
+}
+###
+DELETE {{url}}/{{suffix}}/help-request/1
+Content-Type: application/json
+Authorization: bearer {{accessToken}}
