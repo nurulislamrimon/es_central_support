@@ -23,6 +23,15 @@ Content-Type: application/json
 }
 
 ###
+POST {{url}}/{{suffix}}/administrators/update
+Content-Type: application/json
+authorization: bearer {{accessToken}}
+
+{
+  "full_name" : "Nurul I"
+}
+
+###
 POST {{url}}/{{suffix}}/administrators/login
 Content-Type: application/json
 
