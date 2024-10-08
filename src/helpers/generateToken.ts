@@ -1,5 +1,5 @@
 import { Administrator } from "@prisma/client";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 export const generateToken = (
   user: Administrator,
@@ -12,4 +12,13 @@ export const generateToken = (
   });
 
   return token;
+};
+
+export const verifyToken = (token: string, tokenSecret: string) => {
+  try {
+    const decoded: JwtPayload | string = jwt.verify(token, tokenSecret);
+    return decoded;
+  } catch (error) {
+    throw error;
+  }
 };

@@ -13,6 +13,8 @@ export const globalErrorHandler: ErrorRequestHandler = (
   res,
   next
 ) => {
+  // if headers sended then return next(error);
+  if (res.headersSent) return;
   let errorMessages = [{ path: req.originalUrl, message: error?.message }];
   if (
     error?.name === "PrismaClientValidationError" ||

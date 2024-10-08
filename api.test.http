@@ -1,6 +1,6 @@
 @url=http://localhost:5000
 @suffix=api/v1
-@accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzI4MzE3MTA1LCJleHAiOjE3Mjg0MDM1MDV9.3xx6ehWzP-jZM25XcFuGY_uNwaleIrL2m4wEl7esmFk
+@accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pcmltb25AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzI4MzczNTg1LCJleHAiOjE3Mjg0NTk5ODV9.1dM3n5DZKb4ayJ1MXfFS8KGpRqNxet-IAIOhrsNDOvs
 
 GET {{url}}
 
@@ -17,7 +17,7 @@ Content-Type: application/json
 {
   "full_name" : "Rimon",
   "phone_number":"0123456789",
-  "email":"nim@gmail.com",
+  "email":"nirimon@gmail.com",
   "role": "admin",
   "password" :"123456789"
 }
@@ -27,6 +27,6 @@ POST {{url}}/{{suffix}}/administrators/login
 Content-Type: application/json
 
 {
-  "email":"ni@gmail.com",
+  "email":"nirimon@gmail.com",
   "password" :"123456789"
 }
