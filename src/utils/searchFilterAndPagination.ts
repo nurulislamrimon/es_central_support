@@ -65,13 +65,14 @@ export const searchFilterAndPagination = <
         return typeof item === "string" && !arr2.includes(item);
       });
     }
-    where.OR = removeNumberFields(searchableFields, numberFields).map(
-      (field) => ({
-        [field]: {
-          contains: searchTerm,
-        },
-      })
-    );
+    where.OR = removeNumberFields(searchableFields, [
+      ...numberFields,
+      ...dateFields,
+    ]).map((field) => ({
+      [field]: {
+        contains: searchTerm,
+      },
+    }));
   }
   // -----------------------------------
   // Filtering format for filterFields
