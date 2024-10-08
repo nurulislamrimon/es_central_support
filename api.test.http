@@ -60,7 +60,7 @@ Content-Type: application/json
   "client_name": "Nurul Islam Rimon",
   "phone_number": "01710000000",
   "email": "nirimonbd@gmail.com",
-  "budget_min": 400,
+  # "budget_min": 400,
   # "budget_max": 500,
   "project_description": "This will be the best project if you want!"
 }
