@@ -51,7 +51,7 @@ const addAdministrators = async ({ data }: { data: Administrator }) => {
 // ---------------------------------------------
 // get a administrator by query
 // ---------------------------------------------
-const getAAdministrator = async (query: Prisma.AdministratorFindFirstArgs) => {
+const getAnAdministrator = async (query: Prisma.AdministratorFindFirstArgs) => {
   const administrators = await prisma.administrator.findFirst(query);
   return administrators;
 };
@@ -60,5 +60,5 @@ const getAAdministrator = async (query: Prisma.AdministratorFindFirstArgs) => {
 export const administratorService = {
   getAllAdministrators,
   addAdministrators,
-  getAAdministrator,
+  getAnAdministrator,
 };

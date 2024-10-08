@@ -6,7 +6,7 @@ import { Administrator } from "@prisma/client";
 import { catchAsync } from "../../../utils/catchAsync";
 import { ApiError } from "../../../utils/ApiError";
 import { config } from "../../../config";
-import { generateToken } from "../../../helpers/generateToken";
+import { generateToken } from "../../../helpers/jwt";
 import {
   accessTokenExpireTime,
   refreshTokenExpireTime,
@@ -53,7 +53,7 @@ const getAllAdministrators: RequestHandler = catchAsync(
 const addAdministrator: RequestHandler = catchAsync(async (req, res) => {
   const newAdministrator = req.body;
 
-  const isAlreadyExist = await administratorService.getAAdministrator({
+  const isAlreadyExist = await administratorService.getAnAdministrator({
     where: { email: newAdministrator.email },
   });
   if (isAlreadyExist) {
@@ -91,7 +91,7 @@ const addAdministrator: RequestHandler = catchAsync(async (req, res) => {
 const login: RequestHandler = catchAsync(async (req, res) => {
   const { email, password } = req.body;
 
-  const isAdministratorExist = await administratorService.getAAdministrator({
+  const isAdministratorExist = await administratorService.getAnAdministrator({
     where: { email },
   });
 

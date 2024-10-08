@@ -9,6 +9,16 @@ export const administratorSearchableFields: (keyof Administrator)[] = [
 ];
 
 // ------------------------------------
+// administrator roles
+// ------------------------------------
+export const administratorRoles = {
+  SUPER_ADMIN: "super_admin",
+  ADMIN: "admin",
+  MANAGER: "manager",
+  USER: "user",
+};
+
+// ------------------------------------
 // select fields
 // ------------------------------------
 
