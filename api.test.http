@@ -48,7 +48,7 @@ Content-Type: application/json
 # help request model
 # -----------------
 ###
-GET  {{url}}/{{suffix}}/help-request
+GET  {{url}}/{{suffix}}/help-request?budget_min=400
 Content-Type: application/json
 Authorization: bearer {{accessToken}}
 

@@ -19,14 +19,15 @@ export const globalErrorHandler: ErrorRequestHandler = (
   let errorMessages: IErrorMessages[] = [
     { path: req.originalUrl, message: error?.message },
   ];
-  if (
-    error?.name === "PrismaClientValidationError" ||
-    error?.name === "PrismaClientKnownRequestError" ||
-    error?.name === "PrismaClientUnKnownRequestError"
-  ) {
-    const simplifiedError = formatPrismaError(error, req);
-    errorMessages = simplifiedError?.errorMessages;
-  } else if (error instanceof ZodError) {
+  // if (
+  //   error?.name === "PrismaClientValidationError" ||
+  //   error?.name === "PrismaClientKnownRequestError" ||
+  //   error?.name === "PrismaClientUnKnownRequestError"
+  // ) {
+  //   const simplifiedError = formatPrismaError(error, req);
+  //   errorMessages = simplifiedError?.errorMessages;
+  // } else
+  if (error instanceof ZodError) {
     const simplifiedError = formatZodError(error);
     errorMessages = simplifiedError.errorMessages;
   }

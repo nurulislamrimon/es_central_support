@@ -18,12 +18,12 @@ import { Help_request } from "@prisma/client";
  */
 const getAllhelpRequest: RequestHandler = catchAsync(async (req, res, next) => {
   const result = await helpRequestService.getAllhelpRequest(req);
-  sendResponse<Partial<Help_request>[]>({
+  sendResponse({
     res,
     success: true,
     message: "helpRequest retrieved successfully!",
     data: result.helpRequests,
-    meta: result.meta,
+    // meta: result.meta,
     statusCode: 200,
   });
 });

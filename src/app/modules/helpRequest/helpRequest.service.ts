@@ -37,6 +37,9 @@ const getAllhelpRequest = async (req: Request) => {
     helpRequests,
     meta: { total, page: query.page, limit: query.limit },
   };
+  return {
+    helpRequests: query.where,
+  };
 };
 
 // -----------------------------
