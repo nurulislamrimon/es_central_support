@@ -4,7 +4,7 @@ import {
   formatPrismaClientKnownError,
   formatPrismaValidationError,
   formatZodError,
-} from "../helpers/errorFormatter";
+} from "../app/helpers/errorFormatter";
 import { ZodError } from "zod";
 import {
   PrismaClientKnownRequestError,

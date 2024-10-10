@@ -6,11 +6,8 @@ import { Administrator } from "@prisma/client";
 import { catchAsync } from "../../../utils/catchAsync";
 import { ApiError } from "../../../utils/ApiError";
 import { config } from "../../../config";
-import { generateToken } from "../../../helpers/jwt";
-import {
-  accessTokenExpireTime,
-  refreshTokenExpireTime,
-} from "../../../constants";
+import { generateToken } from "../../helpers/jwt";
+import { accessTokenExpireTime, refreshTokenExpireTime } from "../../constants";
 
 /**
  *@api{GET}/ GET Request.

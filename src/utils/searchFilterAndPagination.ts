@@ -1,6 +1,6 @@
 import { Request } from "express";
-import { IModelMappingsForWhere } from "../interfaces/modelMapping.interfaces";
-import { dateFields, numberFields } from "../constants";
+import { IModelMappingsForWhere } from "../app/interfaces/modelMapping.interfaces";
+import { dateFields, numberFields } from "../app/constants";
 
 // =============================================
 // Pick the keys from an object

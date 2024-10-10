@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { ApiError } from "../utils/ApiError";
 import { config } from "../config";
-import { verifyToken } from "../helpers/jwt";
+import { verifyToken } from "../app/helpers/jwt";
 
 export const authentication = (
   req: Request,

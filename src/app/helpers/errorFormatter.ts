@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { Request } from "express";
 import { ZodError, ZodIssue } from "zod";
-import { IErrorMessages } from "../utils/sendResponse";
+import { IErrorMessages } from "../../utils/sendResponse";
 
 // ------------------------------------------
 // format prisma error
