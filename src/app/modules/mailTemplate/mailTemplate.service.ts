@@ -60,6 +60,16 @@ const getAMailTemplate = async (query: Prisma.Mail_templateFindFirstArgs) => {
 // -----------------------------
 // update an mailTemplate
 // -----------------------------
+const updateMailTemplates = async (
+  data: Prisma.Mail_templateUpdateManyArgs
+) => {
+  const mailTemplates = await prisma.mail_template.updateMany(data);
+  return mailTemplates;
+};
+
+// -----------------------------
+// update an mailTemplate
+// -----------------------------
 const updateMailTemplate = async (
   data: Prisma.Mail_templateUpdateArgs<DefaultArgs>
 ) => {
@@ -82,6 +92,7 @@ export const mailTemplateService = {
   getAllMailTemplate,
   addMailTemplate,
   getAMailTemplate,
+  updateMailTemplates,
   updateMailTemplate,
   deleteMailTemplate,
 };

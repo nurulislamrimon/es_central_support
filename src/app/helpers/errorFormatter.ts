@@ -27,7 +27,7 @@ export function formatPrismaClientKnownError(
   req: Request
 ) {
   let errorMessages: IErrorMessages[] = [];
-  let message = "";
+  let message = error.name;
   if (error.code === "P2025") {
     message = (error.meta?.cause as string) || "Record not found!";
     errorMessages = [

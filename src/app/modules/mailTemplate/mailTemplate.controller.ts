@@ -22,7 +22,7 @@ const getAllMailTemplate: RequestHandler = catchAsync(
     sendResponse({
       res,
       success: true,
-      message: "mailTemplate retrieved successfully!",
+      message: "Mail Template retrieved successfully!",
       data: result.mailTemplates,
       // meta: result.meta,
       statusCode: 200,
@@ -42,18 +42,35 @@ const getAllMailTemplate: RequestHandler = catchAsync(
  *@apiError 401 unauthorized or 401 or 403 forbidden or 404 not found
  */
 const addMailTemplate: RequestHandler = catchAsync(async (req, res) => {
-  const newMailTemplate = req.body;
+  const file = req.file;
+  const uploadedFolder = req.uploadedFolder;
+  req.body = {
+    ...req.body,
+    template_name: file?.originalname,
+    template_type: file?.mimetype,
+    template_path: uploadedFolder + "/" + file?.filename,
+    is_active: true,
+  };
 
   const result = await mailTemplateService.addMailTemplate({
-    data: newMailTemplate,
+    data: req.body,
   });
+
+  // update previous active one
+  const updatePrev = await mailTemplateService.updateMailTemplates({
+    where: { is_active: true },
+    data: { is_active: false },
+  });
+
+  // handle add and update using transaction
+
   if (!result) {
     throw new ApiError(404, "Something went wrong");
   }
   sendResponse<Partial<Mail_template>>({
     res,
     success: true,
-    message: "mailTemplate added successfully!",
+    message: "Mail Template added successfully!",
     data: result,
     statusCode: 200,
   });
@@ -78,7 +95,7 @@ const deleteMailTemplate: RequestHandler = catchAsync(async (req, res) => {
   });
 
   if (!isExist) {
-    throw new ApiError(404, "mailTemplate not found!");
+    throw new ApiError(404, "Mail Template not found!");
   }
 
   const result = await mailTemplateService.deleteMailTemplate({
@@ -90,7 +107,7 @@ const deleteMailTemplate: RequestHandler = catchAsync(async (req, res) => {
   sendResponse<Partial<Mail_template>>({
     res,
     success: true,
-    message: "mailTemplate added successfully!",
+    message: "Mail Template added successfully!",
     data: result,
     statusCode: 200,
   });

@@ -30,7 +30,7 @@ export const uploadFiles = ({
     },
     filename: (req, file, cb) => {
       const fileExt = path.extname(file.originalname);
-      const fileName =
+      const filename =
         file.originalname
           .replace(fileExt, "")
           .toLowerCase()
@@ -38,7 +38,9 @@ export const uploadFiles = ({
           .join("-") +
         Date.now() +
         fileExt;
-      cb(null, fileName);
+      // add the file path to the req
+      req.uploadedFolder = folder;
+      cb(null, filename);
     },
   });
 
@@ -50,13 +52,7 @@ export const uploadFiles = ({
       if (file_types.includes(file.mimetype)) {
         cb(null, true);
       } else {
-        cb(
-          new ApiError(
-            400,
-            // "Only .jpg, .png or .jpeg format allowed!"
-            "The file format is not allowed!"
-          )
-        );
+        cb(new ApiError(400, "The file format is not allowed!"));
       }
     },
   });
