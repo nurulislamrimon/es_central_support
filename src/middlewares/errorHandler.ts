@@ -1,7 +1,15 @@
 import { ErrorRequestHandler, RequestHandler } from "express";
 import { IErrorMessages, sendResponse } from "../utils/sendResponse";
-import { formatPrismaError, formatZodError } from "../helpers/errorFormatter";
+import {
+  formatPrismaClientKnownError,
+  formatPrismaValidationError,
+  formatZodError,
+} from "../helpers/errorFormatter";
 import { ZodError } from "zod";
+import {
+  PrismaClientKnownRequestError,
+  PrismaClientValidationError,
+} from "@prisma/client/runtime/library";
 
 export const notFoundRouteHandler: RequestHandler = (req, res, next) => {
   next({ message: "Route not found", statusCode: 404 });
@@ -16,26 +24,28 @@ export const globalErrorHandler: ErrorRequestHandler = (
 ) => {
   // if headers sended then return next(error);
   if (res.headersSent) return;
+  let message = error?.name || "Internal server error!";
   let errorMessages: IErrorMessages[] = [
     { path: req.originalUrl, message: error?.message },
   ];
-  // if (
-  //   error?.name === "PrismaClientValidationError" ||
-  //   error?.name === "PrismaClientKnownRequestError" ||
-  //   error?.name === "PrismaClientUnKnownRequestError"
-  // ) {
-  //   const simplifiedError = formatPrismaError(error, req);
-  //   errorMessages = simplifiedError?.errorMessages;
-  // } else
-  if (error instanceof ZodError) {
+  if (error instanceof PrismaClientKnownRequestError) {
+    const simplifiedError = formatPrismaClientKnownError(error, req);
+    message = simplifiedError?.message;
+    errorMessages = simplifiedError?.errorMessages;
+  } else if (error instanceof PrismaClientValidationError) {
+    const simplifiedError = formatPrismaValidationError(error, req);
+    message = simplifiedError?.message;
+    errorMessages = simplifiedError?.errorMessages;
+  } else if (error instanceof ZodError) {
     const simplifiedError = formatZodError(error);
+    message = simplifiedError?.message;
     errorMessages = simplifiedError.errorMessages;
   }
 
   sendResponse({
     res,
     success: false,
-    message: error?.name || "Internal server error!",
+    message,
     data: error?.data,
     statusCode: error?.statusCode || 500,
     errorMessages,
