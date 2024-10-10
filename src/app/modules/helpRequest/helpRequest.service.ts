@@ -12,7 +12,7 @@ import { DefaultArgs } from "@prisma/client/runtime/library";
 // -----------------------------
 // get all helpRequests
 // -----------------------------
-const getAllhelpRequest = async (req: Request) => {
+const getAllHelpRequest = async (req: Request) => {
   const query = searchFilterAndPagination<"Help_request">({
     req,
     filterableFields: helpRequestFilterableFields,
@@ -37,15 +37,12 @@ const getAllhelpRequest = async (req: Request) => {
     helpRequests,
     meta: { total, page: query.page, limit: query.limit },
   };
-  return {
-    helpRequests: query.where,
-  };
 };
 
 // -----------------------------
 // add new helpRequest
 // -----------------------------
-const addhelpRequest = async ({ data }: { data: Help_request }) => {
+const addHelpRequest = async ({ data }: { data: Help_request }) => {
   const helpRequests = await prisma.help_request.create({
     data,
   });
@@ -63,7 +60,7 @@ const getAHelpRequest = async (query: Prisma.Help_requestFindFirstArgs) => {
 // -----------------------------
 // update an helpRequest
 // -----------------------------
-const updatehelpRequest = async (
+const updateHelpRequest = async (
   data: Prisma.Help_requestUpdateArgs<DefaultArgs>
 ) => {
   const helpRequests = await prisma.help_request.update(data);
@@ -73,7 +70,7 @@ const updatehelpRequest = async (
 // -----------------------------
 // update an helpRequest
 // -----------------------------
-const deletehelpRequest = async (
+const deleteHelpRequest = async (
   query: Prisma.Help_requestDeleteArgs<DefaultArgs>
 ) => {
   const helpRequests = await prisma.help_request.delete(query);
@@ -82,9 +79,9 @@ const deletehelpRequest = async (
 
 // export
 export const helpRequestService = {
-  getAllhelpRequest,
-  addhelpRequest,
+  getAllHelpRequest,
+  addHelpRequest,
   getAHelpRequest,
-  updatehelpRequest,
-  deletehelpRequest,
+  updateHelpRequest,
+  deleteHelpRequest,
 };

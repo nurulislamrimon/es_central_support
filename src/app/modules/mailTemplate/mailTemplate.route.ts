@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { helpRequestController } from "./helpRequest.controller";
+import { mailTemplateController } from "./mailTemplate.controller";
 import { authorization } from "../../../middlewares/auth";
 import { administratorRoles } from "../administrators/administrators.constants";
 import { validateRequest } from "../../../middlewares/zodValidator";
-import { helpRequestValidate } from "./helpRequest.validator";
+import { mailTemplateValidate } from "./mailTemplate.validator";
 
 const router = Router();
 
@@ -14,14 +14,15 @@ router.get(
     administratorRoles.ADMIN,
     administratorRoles.MANAGER
   ),
-  helpRequestController.getAllHelpRequest
+  mailTemplateController.getAllMailTemplate
 );
 
 router.post(
   "/add",
-  validateRequest(helpRequestValidate),
-  helpRequestController.addHelpRequest
+  validateRequest(mailTemplateValidate),
+  mailTemplateController.addMailTemplate
 );
+
 router.delete(
   "/:id",
   authorization(
@@ -29,7 +30,7 @@ router.delete(
     administratorRoles.ADMIN,
     administratorRoles.MANAGER
   ),
-  helpRequestController.deleteHelpRequest
+  mailTemplateController.deleteMailTemplate
 );
 
-export const helpRequestRoute = router;
+export const mailTemplateRoute = router;

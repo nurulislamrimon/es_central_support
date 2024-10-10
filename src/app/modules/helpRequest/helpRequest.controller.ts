@@ -16,8 +16,8 @@ import { Help_request } from "@prisma/client";
  *@apiSuccess Array - Array of helpRequests
  *@apiError 401 unauthorized or 401 or 403 forbidden or 404 not found
  */
-const getAllhelpRequest: RequestHandler = catchAsync(async (req, res, next) => {
-  const result = await helpRequestService.getAllhelpRequest(req);
+const getAllHelpRequest: RequestHandler = catchAsync(async (req, res, next) => {
+  const result = await helpRequestService.getAllHelpRequest(req);
   sendResponse({
     res,
     success: true,
@@ -42,7 +42,7 @@ const getAllhelpRequest: RequestHandler = catchAsync(async (req, res, next) => {
 const addHelpRequest: RequestHandler = catchAsync(async (req, res) => {
   const newHelpRequest = req.body;
 
-  const result = await helpRequestService.addhelpRequest({
+  const result = await helpRequestService.addHelpRequest({
     data: newHelpRequest,
   });
   if (!result) {
@@ -79,7 +79,7 @@ const deleteHelpRequest: RequestHandler = catchAsync(async (req, res) => {
     throw new ApiError(404, "helpRequest not found!");
   }
 
-  const result = await helpRequestService.deletehelpRequest({
+  const result = await helpRequestService.deleteHelpRequest({
     where: { id: parseInt(id) },
   });
   if (!result) {
@@ -96,7 +96,7 @@ const deleteHelpRequest: RequestHandler = catchAsync(async (req, res) => {
 
 // export helpRequest controller
 export const helpRequestController = {
-  getAllhelpRequest,
+  getAllHelpRequest,
   addHelpRequest,
   deleteHelpRequest,
 };

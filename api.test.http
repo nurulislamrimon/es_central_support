@@ -1,7 +1,7 @@
 @url=http://localhost:5000
 # @url=https://api.male-powerboost.com
 @suffix=api/v1
-@accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZW1haWwiOiJuaUBnbWFpbC5jb20iLCJyb2xlIjoic3VwZXJfYWRtaW4iLCJpYXQiOjE1MTYyMzkwMjJ9.YNA58vj_f6rN_dxxCIkULJLE2KIqLyVLCfclD9HF4E8
+@accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pQGdtYWlsLmNvbSIsInJvbGUiOiJzdXBlcl9hZG1pbiIsImlhdCI6MTcyODU2MDY4MCwiZXhwIjoxNzI4NjQ3MDgwfQ.cMKg7j599rN4Phz3zCOR0E47kcUik5Ub5kJOHRNYxlU
 
 GET {{url}}
 
@@ -42,7 +42,7 @@ Content-Type: application/json
 
 {
   "email":"ni@gmail.com",
-  "password" :"ni"
+  "password" :"Nurul@123"
 }
 
 # -----------------
@@ -68,5 +68,33 @@ Content-Type: application/json
 }
 ###
 DELETE {{url}}/{{suffix}}/help-request/1
+Content-Type: application/json
+Authorization: bearer {{accessToken}}
+
+# -----------------
+# mail template model
+# -----------------
+
+###
+GET  {{url}}/{{suffix}}/mail-template?searchTerm=a
+Content-Type: application/json
+Authorization: bearer {{accessToken}}
+
+###
+POST {{url}}/{{suffix}}/mail-template/add
+Content-Type: application/json
+
+{
+  "platform_name": "Elite Commerce",
+  "client_name": "Nurul Islam Rimon",
+  "phone_number": "01710000000",
+  "email": "nirimonbd@gmail.com",
+  # "budget_min": 400,
+  # "budget_max": 500,
+  "project_description": "This will be the best project if you want!"
+}
+
+###
+DELETE {{url}}/{{suffix}}/mail-template/1
 Content-Type: application/json
 Authorization: bearer {{accessToken}}

@@ -8,6 +8,10 @@ import router from "./router/router";
 import greetings from "./modules/greetings/greetings";
 
 const app = express();
+
+// static path or origin
+app.use(express.static("public"));
+app.use(express.static("views"));
 // middlewares
 app.use(cors());
 app.use(express.json());

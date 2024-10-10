@@ -52,3 +52,16 @@ model Help_request {
   updated_at          DateTime  @updatedAt
   deleted_at          DateTime?
 }
+
+// help model
+model Mail_template {
+  id            Int       @id @default(autoincrement())
+  template_name String
+  template_type String
+  template_path String
+  is_active     Boolean   @default(true)
+  // dates
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  deleted_at    DateTime?
+}
