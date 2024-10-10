@@ -11,7 +11,6 @@ const app = express();
 
 // static path or origin
 app.use(express.static("public"));
-app.use(express.static("views"));
 // middlewares
 app.use(cors());
 app.use(express.json());
