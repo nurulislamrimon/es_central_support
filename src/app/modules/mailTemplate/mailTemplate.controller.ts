@@ -4,6 +4,7 @@ import { sendResponse } from "../../../utils/sendResponse";
 import { catchAsync } from "../../../utils/catchAsync";
 import { ApiError } from "../../../utils/ApiError";
 import { Mail_template } from "@prisma/client";
+import prisma from "../../../orm";
 
 /**
  *@api{GET}/ GET Request.
@@ -52,14 +53,16 @@ const addMailTemplate: RequestHandler = catchAsync(async (req, res) => {
     is_active: true,
   };
 
-  const result = await mailTemplateService.addMailTemplate({
-    data: req.body,
-  });
-
   // update previous active one
-  const updatePrev = await mailTemplateService.updateMailTemplates({
-    where: { is_active: true },
-    data: { is_active: false },
+  const result = await prisma.$transaction(async (prisma) => {
+    await mailTemplateService.updateMailTemplates({
+      where: { is_active: true },
+      data: { is_active: false },
+    });
+    const result = await mailTemplateService.addMailTemplate({
+      data: req.body,
+    });
+    return result;
   });
 
   // handle add and update using transaction
