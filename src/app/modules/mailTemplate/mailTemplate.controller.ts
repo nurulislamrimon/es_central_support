@@ -5,6 +5,7 @@ import { catchAsync } from "../../../utils/catchAsync";
 import { ApiError } from "../../../utils/ApiError";
 import { Mail_template } from "@prisma/client";
 import prisma from "../../../orm";
+import { deleteFile } from "../../../lib/file/deleteFiles";
 
 /**
  *@api{GET}/ GET Request.
@@ -104,13 +105,17 @@ const deleteMailTemplate: RequestHandler = catchAsync(async (req, res) => {
   const result = await mailTemplateService.deleteMailTemplate({
     where: { id: parseInt(id) },
   });
+
   if (!result) {
     throw new ApiError(404, "Something went wrong");
   }
+
+  deleteFile(result.template_path);
+
   sendResponse<Partial<Mail_template>>({
     res,
     success: true,
-    message: "Mail Template added successfully!",
+    message: "Mail Template deleted successfully!",
     data: result,
     statusCode: 200,
   });

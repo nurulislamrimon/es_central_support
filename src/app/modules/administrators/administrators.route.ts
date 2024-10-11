@@ -27,6 +27,12 @@ router.post(
   administratorController.updateAdministrator
 );
 
+router.delete(
+  "/:id",
+  authorization(administratorRoles.SUPER_ADMIN, administratorRoles.ADMIN),
+  administratorController.updateAdministrator
+);
+
 router.post("/login", administratorController.login);
 
 export const administratorRoute = router;

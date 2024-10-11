@@ -114,7 +114,7 @@ const updateAdministrator: RequestHandler = catchAsync(async (req, res) => {
   sendResponse<Partial<Administrator>>({
     res,
     success: true,
-    message: "Administrators added successfully!",
+    message: "Administrators updated successfully!",
     data: rest,
     statusCode: 200,
   });
@@ -182,10 +182,49 @@ const login: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+/**
+ *@api{delete}/update delete Request.
+ *@apiDescription This is a delete request for /update api.
+ *@apiPermission Admin
+ *@apiHeader accessToken
+ *@apiBody Object - administrator data
+ *@apiParam none
+ *@apiQuery none,
+ *@apiSuccess Object - administrator data
+ *@apiError 401 unauthorized or 401 or 403 forbidden or 404 not found
+ */
+
+const deleteAdministrator: RequestHandler = catchAsync(async (req, res) => {
+  const id = req.params.id;
+  const isAlreadyExist = await administratorService.getAnAdministrator({
+    where: { id: Number(id) },
+  });
+
+  if (!isAlreadyExist) {
+    throw new ApiError(404, "User not found!");
+  }
+  // hash the password
+  const result = await administratorService.deleteAdministrators({
+    where: { id: Number(id) },
+  });
+  if (!result) {
+    throw new ApiError(404, "Something went wrong");
+  }
+  const { password, ...rest } = result;
+  sendResponse<Partial<Administrator>>({
+    res,
+    success: true,
+    message: "Administrators deleted successfully!",
+    data: rest,
+    statusCode: 200,
+  });
+});
+
 // export administrator controller
 export const administratorController = {
   getAllAdministrators,
   addAdministrator,
   login,
   updateAdministrator,
+  deleteAdministrator,
 };

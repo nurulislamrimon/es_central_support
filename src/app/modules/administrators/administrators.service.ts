@@ -66,6 +66,15 @@ const updateAdministrators = async (
   const administrators = await prisma.administrator.update(data);
   return administrators;
 };
+// -----------------------------
+// delete an administrator
+// -----------------------------
+const deleteAdministrators = async (
+  query: Prisma.AdministratorDeleteArgs<DefaultArgs>
+) => {
+  const administrators = await prisma.administrator.delete(query);
+  return administrators;
+};
 
 // export
 export const administratorService = {
@@ -73,4 +82,5 @@ export const administratorService = {
   addAdministrators,
   getAnAdministrator,
   updateAdministrators,
+  deleteAdministrators,
 };

@@ -51,7 +51,7 @@ const addHelpRequest: RequestHandler = catchAsync(async (req, res) => {
   sendResponse<Partial<Help_request>>({
     res,
     success: true,
-    message: "helpRequest added successfully!",
+    message: "Help Request added successfully!",
     data: result,
     statusCode: 200,
   });
@@ -88,7 +88,7 @@ const deleteHelpRequest: RequestHandler = catchAsync(async (req, res) => {
   sendResponse<Partial<Help_request>>({
     res,
     success: true,
-    message: "helpRequest added successfully!",
+    message: "Help Request deleted successfully!",
     data: result,
     statusCode: 200,
   });
