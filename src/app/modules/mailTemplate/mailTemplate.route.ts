@@ -28,6 +28,8 @@ router.post(
   mailTemplateController.addMailTemplate
 );
 
+router.patch("/:id", mailTemplateController.activeAMailTemplate);
+
 router.delete(
   "/:id",
   authorization(

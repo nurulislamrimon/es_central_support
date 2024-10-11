@@ -26,7 +26,7 @@ const getAllMailTemplate: RequestHandler = catchAsync(
       success: true,
       message: "Mail Template retrieved successfully!",
       data: result.mailTemplates,
-      // meta: result.meta,
+      meta: result.meta,
       statusCode: 200,
     });
   }
@@ -81,6 +81,47 @@ const addMailTemplate: RequestHandler = catchAsync(async (req, res) => {
 });
 
 /**
+ *@api{PATCH}/add PATCH Request.
+ *@apiDescription This is a PATCH request for /add api.
+ *@apiPermission Admin
+ *@apiHeader accessToken
+ *@apiBody Object - mailTemplate data
+ *@apiParam none
+ *@apiQuery none,
+ *@apiSuccess Object - mailTemplate data
+ *@apiError 401 unauthorized or 401 or 403 forbidden or 404 not found
+ */
+const activeAMailTemplate: RequestHandler = catchAsync(async (req, res) => {
+  const id = Number(req.params.id);
+
+  // update previous active one
+  const result = await prisma.$transaction(async (prisma) => {
+    await mailTemplateService.updateMailTemplates({
+      where: { is_active: true },
+      data: { is_active: false },
+    });
+    const result = await mailTemplateService.updateMailTemplates({
+      where: { id },
+      data: { is_active: true },
+    });
+    return result;
+  });
+
+  // handle add and update using transaction
+
+  if (!result) {
+    throw new ApiError(404, "Something went wrong");
+  }
+  sendResponse({
+    res,
+    success: true,
+    message: "Mail Template actived successfully!",
+    data: result,
+    statusCode: 200,
+  });
+});
+
+/**
  *@api{POST}/delete/:id DELETE Request.
  *@apiDescription This is a DELETE request for /delete/:id api.
  *@apiPermission Admin
@@ -125,5 +166,6 @@ const deleteMailTemplate: RequestHandler = catchAsync(async (req, res) => {
 export const mailTemplateController = {
   getAllMailTemplate,
   addMailTemplate,
+  activeAMailTemplate,
   deleteMailTemplate,
 };
