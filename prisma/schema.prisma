@@ -65,3 +65,15 @@ model Mail_template {
   updated_at    DateTime  @updatedAt
   deleted_at    DateTime?
 }
+
+// mailing model
+model Mailing {
+  id            Int       @id @default(autoincrement())
+  receiver_mail String
+  sender        String
+  template_path String
+  // dates
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  deleted_at    DateTime?
+}
