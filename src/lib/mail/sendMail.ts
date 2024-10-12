@@ -8,13 +8,16 @@ export const sendMail = async (
   attachments?: { filename: string; path: string }[]
 ) => {
   try {
+    if (!config.mailHost || !config.mailUser || !config.mailPass) {
+      throw new Error("Mail configuration is missing");
+    }
     const transporterConfig = {
-      host: config.mailHost || "default-host",
+      host: config.mailHost,
       port: Number(config.mailPort) || 587,
       secure: config.isMailPortSecure === "true",
       auth: {
-        user: config.mailUser || "default-user",
-        pass: config.mailPass || "default-pass",
+        user: config.mailUser,
+        pass: config.mailPass,
       },
       // service: "gmail",
       // auth: {

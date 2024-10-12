@@ -4,11 +4,15 @@ export const mailingFilterableFields: (keyof Mailing)[] = [
   "id",
   "receiver_mail",
   "sender",
+  "subject",
   "template_path",
   "created_at",
   "updated_at",
 ];
-export const mailingSearchableFields: (keyof Mailing)[] = ["receiver_mail"];
+export const mailingSearchableFields: (keyof Mailing)[] = [
+  "receiver_mail",
+  "subject",
+];
 
 // ------------------------------------
 // select fields
@@ -22,6 +26,7 @@ export const mailingSelectedFields: MailingSelectedFields = {
   id: true,
   receiver_mail: true,
   sender: true,
+  subject: true,
   template_path: true,
   created_at: true,
   updated_at: true,

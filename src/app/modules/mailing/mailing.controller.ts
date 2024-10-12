@@ -4,6 +4,9 @@ import { sendResponse } from "../../../utils/sendResponse";
 import { catchAsync } from "../../../utils/catchAsync";
 import { ApiError } from "../../../utils/ApiError";
 import { Mailing } from "@prisma/client";
+import { sendMail } from "../../../lib/mail/sendMail";
+import { mailTemplateService } from "../mailTemplate/mailTemplate.service";
+import { config } from "../../../config";
 
 /**
  *@api{GET}/ GET Request.
@@ -21,9 +24,9 @@ const getAllMailing: RequestHandler = catchAsync(async (req, res, next) => {
   sendResponse({
     res,
     success: true,
-    message: "mailing retrieved successfully!",
+    message: "Mails retrieved successfully!",
     data: result.mailings,
-    // meta: result.meta,
+    meta: result.meta,
     statusCode: 200,
   });
 });
@@ -40,10 +43,37 @@ const getAllMailing: RequestHandler = catchAsync(async (req, res, next) => {
  *@apiError 401 unauthorized or 401 or 403 forbidden or 404 not found
  */
 const addMailing: RequestHandler = catchAsync(async (req, res) => {
-  const newMailing = req.body;
+  const { receiver_mail, subject } = req.body;
+  if (!receiver_mail || !subject) {
+    throw new ApiError(404, "receiver_mail & subject required!");
+  }
 
+  const activeTemplate = await mailTemplateService.getAMailTemplate({
+    where: { is_active: true },
+  });
+
+  if (!activeTemplate) {
+    throw new ApiError(404, "No active template found!");
+  }
+
+  const mailInfo = await sendMail(
+    receiver_mail,
+    subject,
+    activeTemplate?.template_path
+  );
+
+  if (!mailInfo) {
+    throw new ApiError(404, "Something went wrong");
+  }
+  const mailData = {
+    ...req.body,
+    receiver_mail,
+    sender: config.mailUser || "Expert Squad",
+    subject,
+    template_path: activeTemplate?.template_path,
+  };
   const result = await mailingService.addMailing({
-    data: newMailing,
+    data: mailData,
   });
   if (!result) {
     throw new ApiError(404, "Something went wrong");
@@ -51,7 +81,7 @@ const addMailing: RequestHandler = catchAsync(async (req, res) => {
   sendResponse<Partial<Mailing>>({
     res,
     success: true,
-    message: "Mailing added successfully!",
+    message: "Mail sended successfully!",
     data: result,
     statusCode: 200,
   });
@@ -76,7 +106,7 @@ const deleteMailing: RequestHandler = catchAsync(async (req, res) => {
   });
 
   if (!isExist) {
-    throw new ApiError(404, "mailing not found!");
+    throw new ApiError(404, "Mail not found!");
   }
 
   const result = await mailingService.deleteMailing({
@@ -88,7 +118,7 @@ const deleteMailing: RequestHandler = catchAsync(async (req, res) => {
   sendResponse<Partial<Mailing>>({
     res,
     success: true,
-    message: "Mailing deleted successfully!",
+    message: "Mail deleted successfully!",
     data: result,
     statusCode: 200,
   });

@@ -5,5 +5,6 @@ export const mailingValidate = z.object({
     receiver_mail: z
       .string({ invalid_type_error: "Invalid receiver_mail type!" })
       .email({ message: "Invalid receiver_mail address!" }),
+    subject: z.string({ invalid_type_error: "Invalid subject type!" }),
   }),
 });

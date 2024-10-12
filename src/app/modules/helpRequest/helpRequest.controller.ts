@@ -23,7 +23,7 @@ const getAllHelpRequest: RequestHandler = catchAsync(async (req, res, next) => {
     success: true,
     message: "helpRequest retrieved successfully!",
     data: result.helpRequests,
-    // meta: result.meta,
+    meta: result.meta,
     statusCode: 200,
   });
 });

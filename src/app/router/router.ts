@@ -2,6 +2,7 @@ import { Router } from "express";
 import { administratorRoute } from "../modules/administrators/administrators.route";
 import { helpRequestRoute } from "../modules/helpRequest/helpRequest.route";
 import { mailTemplateRoute } from "../modules/mailTemplate/mailTemplate.route";
+import { mailingRoute } from "../modules/mailing/mailing.route";
 
 const router = Router();
 
@@ -17,6 +18,10 @@ const routes = [
   {
     path: "/mail-template",
     element: mailTemplateRoute,
+  },
+  {
+    path: "/mailing",
+    element: mailingRoute,
   },
 ];
 

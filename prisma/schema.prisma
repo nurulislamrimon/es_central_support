@@ -71,6 +71,7 @@ model Mailing {
   id            Int       @id @default(autoincrement())
   receiver_mail String
   sender        String
+  subject       String
   template_path String
   // dates
   created_at    DateTime  @default(now())
