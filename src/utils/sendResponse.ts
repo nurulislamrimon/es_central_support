@@ -30,6 +30,7 @@ export const sendResponse = <T>({
   statusCode = 200,
   errorMessages,
 }: ISendResponseProps<T>): void => {
+  console.log(message);
   res.status(statusCode).json({
     success,
     message,

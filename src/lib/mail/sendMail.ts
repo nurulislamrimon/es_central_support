@@ -13,7 +13,7 @@ export const sendMail = async (
     }
     const transporterConfig = {
       host: config.mailHost,
-      port: Number(config.mailPort) || 587,
+      port: Number(config.mailPort) || 465,
       secure: config.isMailPortSecure === "true",
       auth: {
         user: config.mailUser,
