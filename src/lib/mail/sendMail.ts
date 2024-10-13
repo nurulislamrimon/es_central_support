@@ -14,15 +14,15 @@ export const sendMail = async (
     const transporterConfig = {
       host: config.mailHost,
       port: Number(config.mailPort) || 465,
-      secure: config.isMailPortSecure === "true",
+      secure: config.isMailPortSecure !== "false",
       auth: {
         user: config.mailUser,
         pass: config.mailPass,
       },
       // service: "gmail",
       // auth: {
-      // 	user: config.email_user,
-      // 	pass: config.email_pass,
+      //   user: config.emailUser,
+      //   pass: config.emailPass,
       // },
     };
 

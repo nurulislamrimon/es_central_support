@@ -13,7 +13,10 @@ export const config = {
   // mail configuration
   mailHost: process.env.MAIL_HOST,
   mailPort: process.env.MAIL_PORT,
-  isMailPortSecure: process.env.IS_MAIL_PORT_SECURE,
+  isMailPortSecure: process.env.IS_MAIL_PORT_SECURE || true,
   mailUser: process.env.MAIL_USER,
   mailPass: process.env.MAIL_PASS,
+  // personal email
+  emailUser: process.env.EMAIL_USER,
+  emailPass: process.env.EMAIL_PASS,
 };

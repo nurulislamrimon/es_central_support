@@ -7,6 +7,7 @@ import { Mailing } from "@prisma/client";
 import { sendMail } from "../../../lib/mail/sendMail";
 import { mailTemplateService } from "../mailTemplate/mailTemplate.service";
 import { config } from "../../../config";
+import readFileWithValidation from "../../../lib/file/readFile";
 
 /**
  *@api{GET}/ GET Request.
@@ -59,7 +60,7 @@ const addMailing: RequestHandler = catchAsync(async (req, res) => {
   const mailInfo = await sendMail(
     receiver_mail,
     subject,
-    activeTemplate?.template_path
+    await readFileWithValidation(activeTemplate?.template_path)
   );
 
   if (!mailInfo) {
