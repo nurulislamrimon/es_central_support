@@ -5,6 +5,7 @@ export const sendMail = async (
   to: string,
   subject: string,
   html: string,
+  platformName: string = "Expert Squad",
   attachments?: { filename: string; path: string }[]
 ) => {
   try {
@@ -29,7 +30,7 @@ export const sendMail = async (
     const transporter = nodemailer.createTransport(transporterConfig);
     const info = await transporter.sendMail({
       // from: `${config.mail}`,
-      from: `Expert Squad <${config.mailUser}>`,
+      from: `${platformName} <${config.mailUser}>`,
       to,
       subject,
       html,

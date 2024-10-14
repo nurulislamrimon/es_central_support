@@ -44,7 +44,7 @@ const getAllMailing: RequestHandler = catchAsync(async (req, res, next) => {
  *@apiError 401 unauthorized or 401 or 403 forbidden or 404 not found
  */
 const addMailing: RequestHandler = catchAsync(async (req, res) => {
-  const { receiver_mail, subject } = req.body;
+  const { receiver_mail, subject, platform_name } = req.body;
   if (!receiver_mail || !subject) {
     throw new ApiError(404, "receiver_mail & subject required!");
   }
@@ -60,7 +60,8 @@ const addMailing: RequestHandler = catchAsync(async (req, res) => {
   const mailInfo = await sendMail(
     receiver_mail,
     subject,
-    await readFileWithValidation(activeTemplate?.template_path)
+    await readFileWithValidation(activeTemplate?.template_path),
+    platform_name || "Expert Squad"
   );
 
   if (!mailInfo) {
